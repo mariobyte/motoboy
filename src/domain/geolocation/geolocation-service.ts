@@ -19,6 +19,21 @@ export class GeolocationService {
     }
 
     enviarCoordenadas(motoboy: number, posicao: Position) {
+         return this._http.post(`http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wslocalizacao/wslocalizacao.php?usuario=${motoboy}&latitude=${posicao.coords.latitude}&longitude=${posicao.coords.longitude}`, {}).toPromise();
+        // return this._http.post(`http://192.168.100.130:3000/rastreamento?usuario=${motoboy}&latitude=${posicao.coords.latitude}&longitude=${posicao.coords.longitude}`, {}).toPromise();
+        //return this._http.post('http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wslocalizacao/wslocalizacao.php',
+        //    {
+        //        usuario: motoboy,
+        //        latitude: posicao.coords.latitude,
+        //        longitude: posicao.coords.longitude
+        //    }).toPromise();
+    }
+}
+
+
+/*
+
+    enviarCoordenadas(motoboy: number, posicao: Position) {
         // return this._http.post(`http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wslocalizacao/wslocalizacao.php?usuario=${motoboy}&latitude=${posicao.coords.latitude}&longitude=${posicao.coords.longitude}`, {}).toPromise();
         // return this._http.post(`http://192.168.100.130:3000/rastreamento?usuario=${motoboy}&latitude=${posicao.coords.latitude}&longitude=${posicao.coords.longitude}`, {}).toPromise();
         return this._http.post('http://192.168.100.130:3000/loc',
@@ -28,4 +43,5 @@ export class GeolocationService {
                 longitude: posicao.coords.longitude
             }).toPromise();
     }
-}
+
+*/    
