@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Signature</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <b *ngIf="os.os_solicitante_cliente">{{ os.os_solicitante_cliente }}</b>
+  <signature-pad [options]="signaturePadOptions" id="signatureCanvas"></signature-pad>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4>
+        <button ion-button full color="danger" (click)="drawCancel()">Cancelar</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button full color="light" (click)="drawClear()">Limpar</button>
+      </ion-col>
+      <ion-col col-4>
+        <button ion-button full color="secondary" (click)="drawComplete()">Enviar</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+</ion-content>

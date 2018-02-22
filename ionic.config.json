@@ -1,0 +1,8 @@
+{
+  "name": "Motoboy checkin",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

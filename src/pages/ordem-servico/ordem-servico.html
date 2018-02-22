@@ -1,0 +1,102 @@
+<!--
+  Generated template for the OrdemservicoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>OS: {{ os.id_os }}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list>
+
+    <ion-item-divider>
+      Cliente
+    </ion-item-divider>
+    <ion-item>
+      {{ os.os_nome_cliente }}
+    </ion-item>
+
+    <ion-item-divider>
+      Solicitante
+    </ion-item-divider>
+    <ion-item>
+      {{ os.os_solicitante_cliente }}
+    </ion-item>
+
+    <ion-item-divider>
+      Data
+    </ion-item-divider>
+    <ion-item>
+      {{ os.os_data }} {{ os.os_hora }}
+    </ion-item>
+
+    <ion-item-divider *ngIf="os.os_km">
+      Km
+    </ion-item-divider>
+    <ion-item *ngIf="os.os_km">
+      {{ os.os_km }}
+    </ion-item>
+
+    <ion-item-divider *ngIf="os.os_valor_frete">
+      Valor frete
+    </ion-item-divider>
+    <ion-item *ngIf="os.os_valor_frete">
+      {{ os.os_valor_frete }}
+    </ion-item>
+
+    <ion-item-divider *ngIf="os.os_data_agendada && os.os_hora_agendada">
+      Agendamento
+    </ion-item-divider>
+    <ion-item *ngIf="os.os_data_agendada && os.os_hora_agendada">
+      {{ os.os_data_agendada }}-{{ os.os_hora_agendada }}
+    </ion-item>
+
+    <ion-item-divider>
+      Serviços
+    </ion-item-divider>
+
+    <div *ngFor="let servico of servicos">
+      <ion-card *ngIf="servico.id_item">
+        <ion-card-content>
+          <!-- <ion-card-header>
+            <b>Origem</b>
+          </ion-card-header>
+          {{ servico.item_servico_origem }}
+          <br/> {{ servico.item_endereco_origem }} -->
+          <ion-card-header>
+            <b>Destino</b>
+          </ion-card-header>
+          {{ servico.item_endereco_destino }}
+          <br/>
+          {{ servico.item_servico_destino }}
+        </ion-card-content>
+        <ion-card-header *ngIf="editar">
+          <!-- REGISTRAR ASSINATURA -->
+          <button ion-button block round outline color="secondary" *ngIf="servico.item_assinatura == 1 && servico.status == 2" (click)="openSignatureModel(servico)">Assinatura</button>
+
+          <!-- FAZER CHECKIN -->
+          <button ion-button block round color="dark" *ngIf="servico.status == 1" (click)="efetuarCheckin(servico)">CHECK-IN</button>
+
+          <!-- FAZER CHECKOUT -->
+          <button ion-button block round color="danger" *ngIf="servico.status == 2" (click)="efetuarCheckout(servico)">CHECK-OUT</button>
+
+          <!-- FINALIZADO -->
+          <button ion-button block round color="secondary" *ngIf="servico.status == 3">FINALIZADO</button>
+
+        </ion-card-header>
+      </ion-card>
+    </div>
+
+  </ion-list>
+
+  <button ion-button block round color="secondary" *ngIf="os.os_status == 2" (click)="finalizarOs(os)">FINALIZAR O.S.</button>
+
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Ordens de Serviço
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-card *ngFor="let os of ordemServicos">
+
+    <ion-card-header>
+      {{ os.os_nome_cliente }}
+      <br/> {{ os.os_solicitante_cliente }}
+    </ion-card-header>
+
+    <ion-card-content>
+      <button block round ion-button (click)="visualizarOrdem(os)">
+        VISUALIZAR O.S.
+      </button>
+      <button block round *ngIf="os.os_status == 1" ion-button (click)="pegarOrdem(os)">
+        PEGAR O.S.
+      </button>
+      <button block round *ngIf="os.os_status == 2" ion-button color="danger" (click)="acessarOrdem(os)">
+        EXECUTANDO
+      </button>
+      <button block round *ngIf="os.os_status == 3" ion-button color="secondary" (click)="acessarOrdem(os)">
+        FINALIZADA
+      </button>
+    </ion-card-content>
+
+  </ion-card>
+
+  <button block round ion-button (click)="carregarOs()">
+    ATUALIZAR O.S.
+  </button>
+
+</ion-content>
