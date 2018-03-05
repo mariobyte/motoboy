@@ -75,8 +75,7 @@
             <b>Destino</b>
           </ion-card-header>
           {{ servico.item_endereco_destino }}
-          <br/>
-          {{ servico.item_servico_destino }}
+          <br/> {{ servico.item_servico_destino }}
         </ion-card-content>
         <ion-card-header *ngIf="editar">
           <!-- REGISTRAR ASSINATURA -->
@@ -96,7 +95,4 @@
     </div>
 
   </ion-list>
-
-  <button ion-button block round color="secondary" *ngIf="os.os_status == 2" (click)="finalizarOs(os)">FINALIZAR O.S.</button>
-
 </ion-content>

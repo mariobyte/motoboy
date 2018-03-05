@@ -24,58 +24,63 @@ export class OrdemServicoService {
             .then(retorno => {
                 // resgatando os
                 let ordemServicos: Array<OrdemServico> = [];
-                retorno.ordem_servico.forEach((os) => {
-                    let ordemServico = new OrdemServico(
-                        os.id_os,
-                        os.os_nome_cliente,
-                        os.os_data,
-                        os.os_hora,
-                        // servicos,
-                        os.os_status,
-                        os.os_valor_frete,
-                        os.os_km,
-                        os.os_data_agendada,
-                        os.os_hora_agendada,
-                        os.os_solicitante_cliente
-                    );
-                    ordemServicos.push(ordemServico);
-                });
-                this._daoOS.salvarVarios(ordemServicos);
+                try {
+                    retorno.ordem_servico.forEach((os) => {
+                        let ordemServico = new OrdemServico(
+                            os.id_os,
+                            os.os_nome_cliente,
+                            os.os_data,
+                            os.os_hora,
+                            // servicos,
+                            os.os_status,
+                            os.os_valor_frete,
+                            os.os_km,
+                            os.os_data_agendada,
+                            os.os_hora_agendada,
+                            os.os_solicitante_cliente
+                        );
+                        ordemServicos.push(ordemServico);
+                    });
+                    this._daoOS.salvarVarios(ordemServicos);
 
-                retorno.servicos.forEach((s) => {
+                    retorno.servicos.forEach((s) => {
 
-                    let servico = new Servico(
-                        s.id_os,
-                        s.id_item,
-                        s.item_endereco_origem,
-                        s.item_servico_origem,
-                        s.item_endereco_destino,
-                        s.item_servico_destino,
-                        s.item_assinatura,
-                        s.item_status
-                    );
-                    // registrando o serviço no banco
-                    this.servicoDao.salvar(servico);
-                });
+                        let servico = new Servico(
+                            s.id_os,
+                            s.id_item,
+                            s.item_endereco_origem,
+                            s.item_servico_origem,
+                            s.item_endereco_destino,
+                            s.item_servico_destino,
+                            s.item_assinatura,
+                            s.item_status
+                        );
+                        // registrando o serviço no banco
+                        this.servicoDao.salvar(servico);
+                    });
 
-                // exibindo a notificação
-                if (ordemServicos.length > 0) {
-                    let data = new Date();
-                    data.setSeconds(data.getSeconds() + 5);
-                    // this.localNotifications.schedule({
-                    //     id: 1,
-                    //     text: ordemServicos.length + ' novas O.S. estão disponiveis',
-                    //     title: 'Novas ordens de serviço',
-                    //     data: data,
-                    //     at: data,
-                    //     sound: 'file://beep.caf',
-                    //     icon: 'assets/icon/favicon.ico',
-                    //     priority: 4
-                    // });
-                } else {
-                    // cancelando as notificações que tiver no app
-                    // this.localNotifications.cancelAll();
-                }
+                    // exibindo a notificação
+                    if (ordemServicos.length > 0) {
+                        let data = new Date();
+                        data.setSeconds(data.getSeconds() + 5);
+                        // this.localNotifications.schedule({
+                        //     id: 1,
+                        //     text: ordemServicos.length + ' novas O.S. estão disponiveis',
+                        //     title: 'Novas ordens de serviço',
+                        //     data: data,
+                        //     at: data,
+                        //     sound: 'file://beep.caf',
+                        //     icon: 'assets/icon/favicon.ico',
+                        //     priority: 4
+                        // });
+                    } else {
+                        // cancelando as notificações que tiver no app
+                        // this.localNotifications.cancelAll();
+                    }
+
+                } catch (err) {
+                    return [];
+                };
 
 
                 return ordemServicos;

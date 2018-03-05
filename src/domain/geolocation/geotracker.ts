@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
 import { UsuarioDao } from '../../domain/usuario/usuario-dao';
 
 // Url to post locations to
-// const TRACKER_HOST = 'http://192.168.100.179:3000/loc';
-const TRACKER_HOST = 'http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wslocalizacao/wslocalizacao.php';
+const TRACKER_HOST = 'http://192.168.100.179:3000/loc';
+// const TRACKER_HOST = 'http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wslocalizacao/wslocalizacao.php';
 
 @Injectable()
 export class GeoTracker {
@@ -60,18 +60,16 @@ export class GeoTracker {
       // Step 2:  Configure the plugin
       this.bgGeo.configure({
         debug: false,
-        logLevel: this.bgGeo.LOG_LEVEL_OFF,
+        logLevel: this.bgGeo.LOG_LEVEL_VERBOSE, //LOG_LEVEL_OFF,
         distanceFilter: 10,
         stopTimeout: 1,
-        stopOnTerminate: false,
+        stopOnTerminate: true,
         startOnBoot: true,
         foregroundService: true,
         url: TRACKER_HOST,
         autoSync: true,
+        preventSuspend: true,
         params: {
-          motoboy: {
-            id: usuario.id,
-          },
           device: {  // <-- required for tracker.transistorsoft.com
             platform: this.device.platform,
             version: this.device.version,
@@ -79,7 +77,8 @@ export class GeoTracker {
             cordova: this.device.cordova,
             model: this.device.model,
             manufacturer: this.device.manufacturer,
-            framework: 'Cordova'
+            framework: 'Cordova',
+            id: usuario.id
           }
         }
       }, (state) => {
@@ -89,6 +88,9 @@ export class GeoTracker {
           this.isMoving = state.isMoving;
           this.enabled = state.enabled;
         });
+      });
+      this.bgGeo.getLog(function(log) {
+        console.log(log);
       });
     })
   }
@@ -107,8 +109,10 @@ export class GeoTracker {
     this.platform.ready().then(ret => {
       this.onDeviceReady.bind(this);
       this.bgGeo.start();
-    }
-    );
+      this.bgGeo.is
+    }).catch(err => {
+      alert(err)
+    });
   }
   stop() {
     this.bgGeo.stop();
