@@ -139,7 +139,7 @@ export class LoginPage implements OnInit {
                 return;
             }
         }).catch(err => {
-            alert('Não foi possível comunicacar com GPS');
+            alert('Não foi possível comunicacar com GPS. '+err);
             return;
         })
     }
