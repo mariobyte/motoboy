@@ -28,9 +28,13 @@ export class ServicoService {
     registrarServico(servico: Servico, idMotoboy: number, checkin: StatusMovimentacao) { // 1 - Entrada 2 - Saida
         // enviar ao servidor
         let data = (checkin == StatusMovimentacao.CHECKIN) ? servico.timestampCheckin : servico.timestampCheckout;
+<<<<<<< HEAD
         //let url = `http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wscheckin/wscheckin.php?IdUsuario=${idMotoboy}&idOs=${servico.id_os}&iditem=${servico.id_item}&checkin=${checkin}&data=${data}&latitude=${servico.latitude}&longitude=${servico.longitude}`;
         let url = `http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wscheckin/wscheckin.php?IdUsuario=${idMotoboy}&idOs=${servico.id_os}&iditem=${servico.id_item}&checkin=${checkin}&data=${data}&latitude=${servico.latitude}&longitude=${servico.longitude}&assinatura=${servico.assinatura}`;
 
+=======
+        let url = `http://cortex-sc-dsv.dyndns.org/scriptcase/app/MotoBoy/wscheckin/wscheckin.php?IdUsuario=${idMotoboy}&idOs=${servico.id_os}&iditem=${servico.id_item}&checkin=${checkin}&data=${data}&latitude=${servico.latitude}&longitude=${servico.longitude}&assinatura=${servico.assinatura}&obs=${servico.obs}`;
+>>>>>>> f56972144154973b33a0bf956a7a4fc29c4264b5
         return this._http.post(url, {})
             // .map(res => res.json())
             .toPromise()
