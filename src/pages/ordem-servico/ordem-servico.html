@@ -79,7 +79,8 @@
         </ion-card-content>
         <ion-card-header *ngIf="editar">
           <!-- REGISTRAR ASSINATURA -->
-          <button ion-button block round outline color="secondary" *ngIf="servico.item_assinatura == 1 && servico.status == 2" (click)="openSignatureModel(servico)">Assinatura</button>
+          <!-- <button ion-button block round outline color="secondary" *ngIf="servico.item_assinatura == 1 && servico.status == 2" (click)="openSignatureModel(servico)">Assinatura</button> -->
+          <button ion-button block round outline color="secondary" *ngIf="servico.status == 2" (click)="openSignatureModel(servico)">Assinatura</button>
 
           <!-- FAZER CHECKIN -->
           <button ion-button block round color="dark" *ngIf="servico.status == 1" (click)="efetuarCheckin(servico)">CHECK-IN</button>
@@ -89,6 +90,8 @@
 
           <!-- FINALIZADO -->
           <button ion-button block round color="secondary" *ngIf="servico.status == 3">FINALIZADO</button>
+
+          <ion-input *ngIf="servico.status != 3" type="text" [(ngModel)]="servico.obs" name="obs"></ion-input>
 
         </ion-card-header>
       </ion-card>

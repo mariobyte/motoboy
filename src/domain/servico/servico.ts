@@ -16,7 +16,8 @@ export class Servico {
         public timestampCheckin: number = 0,
         public timestampCheckout: number = 0,
         public assinatura: string = '',
-        public avisado: boolean = false
+        public avisado: boolean = false,
+        public obs: string = ''
     ) {
     }
 }

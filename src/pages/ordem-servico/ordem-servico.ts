@@ -158,6 +158,17 @@ export class OrdemservicoPage implements OnInit {
             buttons: [{ text: 'Ok' }]
           });
         } else {
+          // checkout
+          if (servico.item_assinatura == '1' && servico.assinatura == '') {
+            // obrigatorio ass e  nao foi assinado
+            this._alertCrtl.create({
+              title: 'Assinatura obrigatória!',
+              subTitle: 'O cliente deve assinar este serviço',
+              buttons: [{ text: 'Ok' }]
+            }).present().then(ret => {
+              return;
+            })
+          }
           servico.timestampCheckout = new Date().getTime();
           servico.status = StatusServico.FINALIZADO;
           alert = this._alertCrtl.create({
