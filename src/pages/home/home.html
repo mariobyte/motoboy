@@ -3,6 +3,11 @@
     <ion-title>
       Ordens de Serviço
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="deslogar()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -35,5 +40,8 @@
   <button block round ion-button (click)="carregarOs()">
     ATUALIZAR O.S.
   </button>
+  <!-- <button block round ion-button color="danger" (click)="deslogar()">
+    DESLOGAR
+  </button> -->
 
 </ion-content>

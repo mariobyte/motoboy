@@ -20,4 +20,8 @@ export class UsuarioDao {
                 return usuario;
             })
     }
+
+    apagar(){
+        return this._storage.remove(this.usuarioKey);
+    }
 }

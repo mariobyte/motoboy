@@ -1,5 +1,5 @@
 import { Component, NgZone } from '@angular/core';
-import { IonicPage, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavParams, Platform, NavController } from 'ionic-angular';
 import { Device } from '@ionic-native/device';
 import { Injectable } from '@angular/core';
 import { UsuarioDao } from '../../domain/usuario/usuario-dao';
@@ -11,7 +11,7 @@ const TRACKER_HOST = 'http://192.168.100.179:3000/loc';
 @Injectable()
 export class GeoTracker {
   // BackgroundGeolocation instance
-  bgGeo: any;
+  public bgGeo: any;
 
   // UI State
   enabled: boolean;
@@ -26,7 +26,8 @@ export class GeoTracker {
     private device: Device,
     private platform: Platform,
     private zone: NgZone,
-    private usuarioDao: UsuarioDao) {
+    private usuarioDao: UsuarioDao
+  ) {
     this.isMoving = false;
     this.enabled = false;
     this.events = [];
@@ -89,7 +90,7 @@ export class GeoTracker {
           this.enabled = state.enabled;
         });
       });
-      this.bgGeo.getLog(function(log) {
+      this.bgGeo.getLog(function (log) {
         console.log(log);
       });
     })
@@ -109,10 +110,9 @@ export class GeoTracker {
     this.platform.ready().then(ret => {
       this.onDeviceReady.bind(this);
       this.bgGeo.start();
-      this.bgGeo.is
     }).catch(err => {
-      alert(err)
-    });
+        alert(err)
+      });
   }
   stop() {
     this.bgGeo.stop();

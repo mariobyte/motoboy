@@ -35,7 +35,6 @@ import { SignaturePage } from '../pages/signature/signature';
 import { SignaturePadModule } from 'angular2-signaturepad';
 
 import { MyApp } from './app.component';
-import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -81,7 +80,6 @@ function providerStorage() {
     Md5,
     // AppMinimize,
     AndroidPermissions,
-    BackgroundGeolocation,
     LocalNotifications,
     Geolocation,
 
