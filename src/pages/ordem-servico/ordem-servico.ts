@@ -10,7 +10,7 @@ import { LoginPage } from '../login/login';
 import { GeolocationService } from '../../domain/geolocation/geolocation-service';
 import { StatusServico } from '../../domain/servico/status-servico';
 import { StatusMovimentacao } from '../../domain/servico/status-movimentacao';
-import { ServicoService } from '../../domain/servico/serico-service';
+import { ServicoService } from '../../domain/servico/servico-service';
 import { SignaturePage } from '../signature/signature';
 import { ServicoDao } from '../../domain/servico/servico-dao';
 import { HomePage } from '../..//pages/home/home';

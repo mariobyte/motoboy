@@ -14,7 +14,7 @@ import 'rxjs/add/operator/toPromise';
 // SERVICES
 import { UsuarioService } from '../domain/usuario/usuario-service';
 import { OrdemServicoService } from '../domain/ordem-servico/ordem-servico-service';
-import { ServicoService } from '../domain/servico/serico-service';
+import { ServicoService } from '../domain/servico/servico-service';
 import { GeolocationService } from '../domain/geolocation/geolocation-service';
 import { GeoTracker } from '../domain/geolocation/geotracker';
 

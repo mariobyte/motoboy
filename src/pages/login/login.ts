@@ -16,7 +16,7 @@ import { GeoTracker } from '../../domain/geolocation/geotracker';
 })
 export class LoginPage implements OnInit {
 
-    public usuario: Usuario = new Usuario('mario', 'gsm', 0, 0);
+    public usuario: Usuario = new Usuario('', '', 0, 0);
 
     constructor(
         public navCrtl: NavController,
@@ -111,7 +111,6 @@ export class LoginPage implements OnInit {
                             subTitle: 'Usuário/senha inválidos',
                             buttons: [{ text: 'OK' }]
                         }).present();
-                        this.irParaHome();
                     }
                 })
                 .catch(err => {
@@ -139,6 +138,7 @@ export class LoginPage implements OnInit {
             content: 'Carregando GPS',
         });
         loader.present().then(() => {
+            GeoTracker.logado = true;
             this.geoTrack.start(this.usuario.id);
             // this.geoTrack.bgGeo.on('providerchange', function (provider) {
             //     alert('chamou ' + provider.gps)

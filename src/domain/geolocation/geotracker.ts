@@ -13,6 +13,9 @@ export class GeoTracker {
   // BackgroundGeolocation instance
   public bgGeo: any;
 
+  public static gps: boolean = false;
+  public static logado: boolean = false;
+
   // UI State
   enabled: boolean;
   isMoving: boolean;
@@ -111,8 +114,8 @@ export class GeoTracker {
       this.onDeviceReady.bind(this);
       this.bgGeo.start();
     }).catch(err => {
-        alert(err)
-      });
+      alert(err)
+    });
   }
   stop() {
     this.bgGeo.stop();
@@ -189,6 +192,7 @@ export class GeoTracker {
     console.log('[event] providerchange', provider);
     this.zone.run(() => {
       this.addEvent('providerchange', new Date(), provider);
+      GeoTracker.gps = provider.gps;
     });
   }
   /**

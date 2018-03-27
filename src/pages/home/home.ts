@@ -21,6 +21,7 @@ export class HomePage implements OnInit {
 
   public ordemServicos: Array<OrdemServico> = [];
   private usuario: Usuario;
+  private geoTrack: GeoTracker
 
   constructor(
     private navCtrl: NavController,
@@ -31,8 +32,7 @@ export class HomePage implements OnInit {
     private navParams: NavParams,
     private toastCrtl: ToastController,
     private localNotifications: LocalNotifications,
-    private usuarioDao: UsuarioDao,
-    private geoTrack: GeoTracker
+    private usuarioDao: UsuarioDao
   ) {
     this.usuario = this.navParams.get('usuario');
     this.geoTrack = this.navParams.get('geo');
@@ -40,20 +40,6 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.geoTrack.bgGeo.on('providerchange', function (provider) {
-      if (!provider.gps) {
-        alert('Ative o GPS para utilizar o aplicativo');
-        // usuário desativou o gps
-        // this.alertCrtl.create({
-        //   title: 'GPS desativado',
-        //   subTitle: 'Ative o GPS para utilizar o app',
-        //   buttons: [{ text: 'Ok' }]
-        // }).present().then(() => {
-          this.deslogar();
-        // })
-      }
-    });
 
     let loader = this.loaderCrtl.create({
       content: 'Carregando O.S. ...'
@@ -70,20 +56,21 @@ export class HomePage implements OnInit {
         .catch(err => {
           console.log(err);
           loader.dismiss();
-          // this.alertCrtl.create({
-          //   title: 'Falha ao comunicar com o servidor ' + this.usuario.id,
-          //   subTitle: err,
-          //   buttons: [{ text: 'Ok' }]
-          // }).present()
+          this.alertCrtl.create({
+            title: 'Falha ao comunicar com o servidor ' + this.usuario.id,
+            subTitle: err,
+            buttons: [{ text: 'Ok' }]
+          }).present()
         })
     })
   }
 
   deslogar() {
     // deslogando usuario
-    this.usuarioDao.apagar();
-    this.geoTrack.stop();
     this.navCtrl.setRoot(LoginPage);
+    this.usuarioDao.apagar();
+    GeoTracker.logado = false;
+    this.geoTrack.stop();
   }
 
   carregarOs() {
@@ -108,17 +95,28 @@ export class HomePage implements OnInit {
 
 
   atualizarOs(tempo) {
-    setTimeout(() => {
+    if (GeoTracker.logado) {
+      setTimeout(() => {
 
-      this.carregarOs().then(ret => {
-        // this.toastCrtl.create({
-        //   message: 'O.S. atualizadas!'
-        // }).present();
+        this.carregarOs().then(ret => {
+          this.validarGps();
+          this.atualizarOs(tempo);
+        });
 
-        this.atualizarOs(tempo);
-      });
-
-    }, tempo);
+      }, tempo);
+    } else {
+      return;
+    }
+  }
+  validarGps() {
+    if (!GeoTracker.gps) {
+      this.deslogar();
+      this.alertCrtl.create({
+        title: 'GPS desativado!',
+        subTitle: 'Habilite o GPS para usar o app',
+        buttons: [{ text: 'Ok' }]
+      }).present();
+    }
   }
   acessarOrdem(os: OrdemServico) {
     this.navCtrl.push(OrdemservicoPage, { os, editar: true });
